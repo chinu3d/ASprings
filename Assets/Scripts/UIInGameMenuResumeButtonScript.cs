@@ -15,6 +15,8 @@ public class UIInGameMenuResumeButtonScript : MonoBehaviour
 
     void clicked()
     {
+        GetComponent<AudioSource>().Play();
+
         GameManager.instance.resumeGame();
 
         InGameMenuCanvasGroup.alpha = 0f;

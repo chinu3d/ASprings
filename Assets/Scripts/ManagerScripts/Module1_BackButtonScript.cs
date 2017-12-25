@@ -14,6 +14,8 @@ public class Module1_BackButtonScript : MonoBehaviour {
 
     void clicked()
     {
+        GetComponent<AudioSource>().Play();
+
         StartCoroutine(changeScene());
         //changeScene();
     }

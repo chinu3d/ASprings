@@ -17,6 +17,7 @@ public class SpringLoad : MonoBehaviour {
     public float springConstant;
     public float yCorrectionOfLoad;
     public float minimumDragDistanceForSpringToAct;
+    public AmmoSpawnerScript _ammoSpawnerScript;
 
     private SpringState _springState;
     private Rigidbody2D _rigidBody;
@@ -67,6 +68,7 @@ public class SpringLoad : MonoBehaviour {
                 this.gameObject.transform.position = meanPositionOfLoad;
                 _rigidBody.AddForce(Vector2.zero);
                 this._springState = SpringState.AtRest;
+                _ammoSpawnerScript.createNewAmmo();
             }
             else
             {

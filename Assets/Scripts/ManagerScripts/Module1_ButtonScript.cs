@@ -13,6 +13,7 @@ public class Module1_ButtonScript : MonoBehaviour {
 
     void clicked()
     {
+        GetComponent<AudioSource>().Play();
         StartCoroutine(changeScene());
         //changeScene();
     }

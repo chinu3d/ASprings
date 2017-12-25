@@ -17,6 +17,8 @@ public class ButtonScriptForLevel : MonoBehaviour {
 
     void clicked()
     {
+        GetComponent<AudioSource>().Play();
+
         StartCoroutine(changeScene());
         //changeScene();
     }

@@ -14,6 +14,7 @@ public class Spring : MonoBehaviour {
     private float initialWidthOfSpring;
     private float initialXScaleOfSpring;
     private Vector2 initialPosition;
+    
 
     // Use this for initialization
     void Start () {
@@ -36,5 +37,6 @@ public class Spring : MonoBehaviour {
         this.transform.localScale = new Vector2(initialXScaleOfSpring * (newWidthOfSpringRequired / initialWidthOfSpring), transform.localScale.y);
         this.transform.position = new Vector2(initialPosition.x + (d / Mathf.Sqrt(1.0f + Mathf.Pow(slopeOfPlatform, 2.0f))),
             initialPosition.y + slopeOfPlatform * (d / Mathf.Sqrt(1.0f + Mathf.Pow(slopeOfPlatform, 2.0f))));
+        
     }
 }

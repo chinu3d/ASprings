@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UIInGameCloseButtonScript : MonoBehaviour
 {
     public CanvasGroup InGameMenuCanvasGroup;
+    public CanvasGroup InGameMenuConfirmExitCanvasGroup;
 
 
     // Use this for initialization
@@ -16,19 +17,24 @@ public class UIInGameCloseButtonScript : MonoBehaviour
 
     void clicked()
     {
-        if (InGameMenuCanvasGroup.interactable == false)
+        GetComponent<AudioSource>().Play();
+
+        if (InGameMenuConfirmExitCanvasGroup.interactable == false) //Only when the confirm exit dialog is inactive
         {
-            //Pause the game
-            GameManager.instance.pauseGame();
-            showInGameMenu();
+            if (InGameMenuCanvasGroup.interactable == false)
+            {
+                //Pause the game
+                GameManager.instance.pauseGame();
+                showInGameMenu();
+            }
+            else
+            {
+                //Resume the game
+                GameManager.instance.resumeGame();
+                hideInGameMenu();
+            }
         }
-        else
-        {
-            //Resume the game
-            GameManager.instance.resumeGame();
-            hideInGameMenu();
-        }
-    }
+     }
 
     void showInGameMenu()
     {

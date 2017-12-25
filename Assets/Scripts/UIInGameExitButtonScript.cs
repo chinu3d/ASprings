@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class UIInGameExitButtonScript : MonoBehaviour {
 
+    public CanvasGroup InGameConfirmExitCanvasGroup;
+    public CanvasGroup InGameMenuCanvasGroup;
 
     // Use this for initialization
     void Start()
@@ -14,16 +16,14 @@ public class UIInGameExitButtonScript : MonoBehaviour {
 
     void clicked()
     {
-        GameManager.instance.resumeGame();
+        GetComponent<AudioSource>().Play();
 
-        StartCoroutine(changeScene());
+        InGameMenuCanvasGroup.alpha = 0f;
+        InGameMenuCanvasGroup.interactable = false;
+        InGameMenuCanvasGroup.blocksRaycasts = false;
+
+        InGameConfirmExitCanvasGroup.alpha = 1f;
+        InGameConfirmExitCanvasGroup.interactable = true;
+        InGameConfirmExitCanvasGroup.blocksRaycasts = true;
     }
-
-    IEnumerator changeScene()
-    {
-        float fadeTime = GameManager.instance.GetComponent<Fading>().BeginFade(1);
-        yield return new WaitForSeconds(fadeTime);
-        GameManager.instance.LoadMainMenuScene();
-    }
-
 }

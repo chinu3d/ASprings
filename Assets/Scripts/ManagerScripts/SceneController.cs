@@ -38,6 +38,7 @@ public class SceneController : MonoBehaviour {
     private int levelScore;
     private GameState _gameState;
     private int deltaScoreToBeAddedOnPartObjectiveCompletion;
+    private bool gameConcluded; //Game won/lost or still in progress
 
     //Objective type - Drop Balls
     private int ballsDroppedSoFar;
@@ -49,6 +50,7 @@ public class SceneController : MonoBehaviour {
         this._gameState = GameState.Normal;
         this.timePassedSinceLastAmmoFire = 10.0f;
         this.lastAmmoHasBeenFired = false;
+        this.gameConcluded = false;
 
         scoreText.text = "Level: " + strLevelNumber + ", Score: " + levelScore + ", Ammo: " + (ammoSpawnerScript.ammoLeft());
 
@@ -61,38 +63,42 @@ public class SceneController : MonoBehaviour {
 
     void Update()
     {
-        int timeInt = (int)Time.time;
-        if ((Time.time - (float)timeInt >= 0.0f) && (Time.time - (float)timeInt <= 0.4f))
-            scoreText.text = "Level: " + strLevelNumber + ", Score: " + levelScore + ", Ammo: " + (ammoSpawnerScript.ammoLeft());
-
-        if ((this.lastAmmoHasBeenFired) && (this.timePassedSinceLastAmmoFire > 0.0f))
+        if ((GameManager.instance.gameIsPaused() == false) && (this.gameConcluded == false))
         {
-            this.timePassedSinceLastAmmoFire -= Time.deltaTime;
-            CountdownAfterLastAmmoFireCanvasGroup.GetComponentInChildren<Text>().text = this.timePassedSinceLastAmmoFire.ToString("N2");
-        }
+            int timeInt = (int)Time.time;
+            if ((Time.time - (float)timeInt >= 0.0f) && (Time.time - (float)timeInt <= 0.4f))
+                scoreText.text = "Level: " + strLevelNumber + ", Score: " + levelScore + ", Ammo: " + (ammoSpawnerScript.ammoLeft());
 
-        if ((this.timePassedSinceLastAmmoFire <= 0.0f) && (this.GameOverCanvasGroup.alpha == 0f))
-        {
-            this.timePassedSinceLastAmmoFire = 0.0f;
-            CountdownAfterLastAmmoFireCanvasGroup.GetComponentInChildren<Text>().text = "0";
-
-            CountdownAfterLastAmmoFireCanvasGroup.alpha = 0f;
-            CountdownAfterLastAmmoFireCanvasGroup.interactable = false;
-            CountdownAfterLastAmmoFireCanvasGroup.blocksRaycasts = false;
-            
-            //If the ojective has not been met, then show the game over dialog
-            if (ObjectiveHasbeenMet())
+            if ((this.lastAmmoHasBeenFired) && (this.timePassedSinceLastAmmoFire > 0.0f))
             {
-                //Show victory dialog
+                this.timePassedSinceLastAmmoFire -= Time.deltaTime;
+                CountdownAfterLastAmmoFireCanvasGroup.GetComponentInChildren<Text>().text = this.timePassedSinceLastAmmoFire.ToString("N2");
             }
-            else
-            {
-                //Show game over dialog
-                this.GameOverCanvasGroup.alpha = 1f;
-                this.GameOverCanvasGroup.interactable = true;
-                this.GameOverCanvasGroup.blocksRaycasts = true;
 
-                this.GameOverAudioSource.Play();
+            if ((this.timePassedSinceLastAmmoFire <= 0.0f) && (this.GameOverCanvasGroup.alpha == 0f))
+            {
+                this.timePassedSinceLastAmmoFire = 0.0f;
+                CountdownAfterLastAmmoFireCanvasGroup.GetComponentInChildren<Text>().text = "0";
+
+                CountdownAfterLastAmmoFireCanvasGroup.alpha = 0f;
+                CountdownAfterLastAmmoFireCanvasGroup.interactable = false;
+                CountdownAfterLastAmmoFireCanvasGroup.blocksRaycasts = false;
+
+                //If the ojective has not been met, then show the game over dialog
+                if (ObjectiveHasbeenMet())
+                {
+                    //Show victory dialog
+                }
+                else
+                {
+                    //Show game over dialog
+                    this.GameOverCanvasGroup.alpha = 1f;
+                    this.GameOverCanvasGroup.interactable = true;
+                    this.GameOverCanvasGroup.blocksRaycasts = true;
+
+                    this.GameOverAudioSource.Play();
+                    this.gameConcluded = true;
+                }
             }
         }
     }
@@ -129,6 +135,7 @@ public class SceneController : MonoBehaviour {
         if (ballsDroppedSoFar >= numberOfBallsToDrop) {
 
             _gameState = GameState.LastBallDropped;
+            this.gameConcluded = true;
 
             //Victory
             StartCoroutine(showLevelVictoryScene());

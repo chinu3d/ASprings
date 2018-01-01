@@ -112,6 +112,8 @@
     <Compile Include="Assets\Scripts\UIInGameExitButtonScript.cs" />
     <Compile Include="Assets\Scripts\UIInGameMenuResumeButtonScript.cs" />
     <Compile Include="Assets\Scripts\UILevelsLayoutScript.cs" />
+    <Compile Include="Assets\Scripts\UINextLevelButtonScript.cs" />
+    <Compile Include="Assets\Scripts\VerticalMotionScript.cs" />
     <Compile Include="Assets\Scripts\ViewportHandler.cs" />
     <Compile Include="Assets\Scripts\WoodenProjectileScript.cs" />
   </ItemGroup>

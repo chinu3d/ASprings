@@ -20,7 +20,7 @@ public class BallReceiverScript : MonoBehaviour {
     {
         if (collision.gameObject.tag.Equals("DropBall"))
         {
-            GameState currentGameState = sceneController.ballDropped();
+            GameState currentGameState = sceneController.ballDropped(BallType.Normal_10_Points);
         }
     }
 
@@ -28,7 +28,7 @@ public class BallReceiverScript : MonoBehaviour {
     {
         if (collision.gameObject.tag.Equals("DropBall"))
         {
-            GameState currentGameState = sceneController.ballDropped();
+            GameState currentGameState = sceneController.ballDropped(BallType.Normal_10_Points);
         }
     }
 }

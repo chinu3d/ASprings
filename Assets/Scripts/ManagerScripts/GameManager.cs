@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
 
     private bool _gameIsPaused = false;
+    public string currentLevelSceneName;
 
     void Awake()
     {
@@ -68,7 +69,13 @@ public class GameManager : MonoBehaviour
 
     public void LoadSceneWithName(string sceneName)
     {
+        this.currentLevelSceneName = sceneName;
         SceneManager.LoadSceneAsync(sceneName);
+    }
+
+    public void LoadLevelVictoryScene()
+    {
+        SceneManager.LoadSceneAsync("LevelVictoryScene");
     }
 
     /*public void InitGame()

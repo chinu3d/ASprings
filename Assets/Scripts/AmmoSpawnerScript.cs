@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 enum AmmoSpawnerState
 {
@@ -13,6 +14,7 @@ public class AmmoSpawnerScript : MonoBehaviour {
 
     public GameObject ammoPrefab;
     public int maxAmmo;
+    public UnityEvent ammoFiredEvent;
 
     private int ammoExhaustedSoFar;
     private AmmoSpawnerState _ammoSpawnerState;
@@ -51,6 +53,7 @@ public class AmmoSpawnerScript : MonoBehaviour {
     {
         if ((collision.gameObject.tag.Equals("Projectile")) && (arrayOfProjectileNamesExhaustedSoFar.Contains(collision.gameObject.name) == false))
         {
+            this.ammoFiredEvent.Invoke();
             _ammoSpawnerState = AmmoSpawnerState.ReadyForNextSpawn;
         }
 

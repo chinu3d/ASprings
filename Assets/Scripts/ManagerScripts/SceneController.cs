@@ -16,6 +16,11 @@ public enum GameState {
     LastBallDropped
 };
 
+public enum BallType
+{
+    Normal_10_Points
+};
+
 public class SceneController : MonoBehaviour {
 
     public int numberOfBallsToDrop;
@@ -23,7 +28,13 @@ public class SceneController : MonoBehaviour {
     public Text scoreText;
     public AmmoSpawnerScript ammoSpawnerScript;
     public string strLevelNumber;
+    public GameObject normal_10_PointsTextObj;
+    public CanvasGroup GameOverCanvasGroup;
+    public CanvasGroup CountdownAfterLastAmmoFireCanvasGroup;
+    public AudioSource GameOverAudioSource;
 
+    private float timePassedSinceLastAmmoFire;
+    private bool lastAmmoHasBeenFired;
     private int levelScore;
     private GameState _gameState;
     private int deltaScoreToBeAddedOnPartObjectiveCompletion;
@@ -36,6 +47,8 @@ public class SceneController : MonoBehaviour {
 		
         this.levelScore = 0;
         this._gameState = GameState.Normal;
+        this.timePassedSinceLastAmmoFire = 10.0f;
+        this.lastAmmoHasBeenFired = false;
 
         scoreText.text = "Level: " + strLevelNumber + ", Score: " + levelScore + ", Ammo: " + (ammoSpawnerScript.ammoLeft());
 
@@ -51,18 +64,76 @@ public class SceneController : MonoBehaviour {
         int timeInt = (int)Time.time;
         if ((Time.time - (float)timeInt >= 0.0f) && (Time.time - (float)timeInt <= 0.4f))
             scoreText.text = "Level: " + strLevelNumber + ", Score: " + levelScore + ", Ammo: " + (ammoSpawnerScript.ammoLeft());
+
+        if ((this.lastAmmoHasBeenFired) && (this.timePassedSinceLastAmmoFire > 0.0f))
+        {
+            this.timePassedSinceLastAmmoFire -= Time.deltaTime;
+            CountdownAfterLastAmmoFireCanvasGroup.GetComponentInChildren<Text>().text = this.timePassedSinceLastAmmoFire.ToString("N2");
+        }
+
+        if ((this.timePassedSinceLastAmmoFire <= 0.0f) && (this.GameOverCanvasGroup.alpha == 0f))
+        {
+            this.timePassedSinceLastAmmoFire = 0.0f;
+            CountdownAfterLastAmmoFireCanvasGroup.GetComponentInChildren<Text>().text = "0";
+
+            CountdownAfterLastAmmoFireCanvasGroup.alpha = 0f;
+            CountdownAfterLastAmmoFireCanvasGroup.interactable = false;
+            CountdownAfterLastAmmoFireCanvasGroup.blocksRaycasts = false;
+            
+            //If the ojective has not been met, then show the game over dialog
+            if (ObjectiveHasbeenMet())
+            {
+                //Show victory dialog
+            }
+            else
+            {
+                //Show game over dialog
+                this.GameOverCanvasGroup.alpha = 1f;
+                this.GameOverCanvasGroup.interactable = true;
+                this.GameOverCanvasGroup.blocksRaycasts = true;
+
+                this.GameOverAudioSource.Play();
+            }
+        }
     }
 
-    public GameState ballDropped()
+    private bool ObjectiveHasbeenMet()
+    {
+        if (this.objectiveType == LevelObjectiveType.DropBalls)
+        {
+            if (ballsDroppedSoFar == numberOfBallsToDrop)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        return false;
+    }
+
+    public GameState ballDropped(BallType droppedBallType)
     {
         this.levelScore += deltaScoreToBeAddedOnPartObjectiveCompletion;
         ballsDroppedSoFar += 1;
+
+        //Play the score animation
+        if (droppedBallType == BallType.Normal_10_Points)
+        {
+            GameObject instanceOfNormal_10_PointsTextObj = GameObject.Instantiate(this.normal_10_PointsTextObj);
+            GameObject.Destroy(instanceOfNormal_10_PointsTextObj, 1);
+        }
 
         if (ballsDroppedSoFar >= numberOfBallsToDrop) {
 
             _gameState = GameState.LastBallDropped;
 
-        } else if (ballsDroppedSoFar == (numberOfBallsToDrop - 1)) {
+            //Victory
+            StartCoroutine(showLevelVictoryScene());
+        }
+        else if (ballsDroppedSoFar == (numberOfBallsToDrop - 1)) {
 
             _gameState = GameState.LastButOneBallDropped;
 
@@ -74,13 +145,29 @@ public class SceneController : MonoBehaviour {
         return _gameState;
     }
 
-    public void ammoFired()
+    public void cubeFired()
     {
-        scoreText.text = "Level: " + strLevelNumber + ", Score: " + levelScore + ", Ammo: " + (ammoSpawnerScript.ammoLeft());
+        if (ammoSpawnerScript.ammoLeft() == 0)
+        {
+            this.lastAmmoHasBeenFired = true;
+
+            CountdownAfterLastAmmoFireCanvasGroup.alpha = 1f;
+            CountdownAfterLastAmmoFireCanvasGroup.interactable = true;
+            CountdownAfterLastAmmoFireCanvasGroup.blocksRaycasts = true;
+        }
+
     }
 
     public int getCurrentScore()
     {
         return this.levelScore;
     }
+
+    IEnumerator showLevelVictoryScene()
+    {
+        float fadeTime = GameManager.instance.GetComponent<Fading>().BeginFade(1);
+        yield return new WaitForSeconds(fadeTime);
+        GameManager.instance.LoadLevelVictoryScene();
+    }
+
 }

@@ -89,9 +89,11 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\AmmoSpawnerScript.cs" />
     <Compile Include="Assets\Scripts\BallReceiverScript.cs" />
+    <Compile Include="Assets\Scripts\BonusBallScript.cs" />
     <Compile Include="Assets\Scripts\CameraAspect.cs" />
     <Compile Include="Assets\Scripts\CloseAppCancelScript.cs" />
     <Compile Include="Assets\Scripts\CloseAppConfirmScript.cs" />
+    <Compile Include="Assets\Scripts\ExploderScript.cs" />
     <Compile Include="Assets\Scripts\Fading.cs" />
     <Compile Include="Assets\Scripts\FireworksScript.cs" />
     <Compile Include="Assets\Scripts\MainMenuCloseButtonScript.cs" />

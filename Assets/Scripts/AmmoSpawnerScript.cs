@@ -51,13 +51,19 @@ public class AmmoSpawnerScript : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if ((collision.gameObject.tag.Equals("Projectile")) && (arrayOfProjectileNamesExhaustedSoFar.Contains(collision.gameObject.name) == false))
+        if ((collision.gameObject.tag.Equals("Projectile")) && 
+            (collision.gameObject.layer == 13) &&
+            (arrayOfProjectileNamesExhaustedSoFar.Contains(collision.gameObject.name) == false))
         {
+            collision.gameObject.layer = 12; //Layer no. 12 is "Interactible". This has been done so that as soon as it has been fired, it should be affected by other activities such as explosions etc.
             this.ammoFiredEvent.Invoke();
             _ammoSpawnerState = AmmoSpawnerState.ReadyForNextSpawn;
         }
 
-        if (collision.gameObject.tag.Equals("Projectile")) 
+        if ((collision.gameObject.tag.Equals("Projectile")) &&
+            (collision.gameObject.layer == 13))
+        {
             arrayOfProjectileNamesExhaustedSoFar.Add(collision.gameObject.name);
+        }
     }
 }

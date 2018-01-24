@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MetalBallScript : MonoBehaviour {
 
+    public bool ballHasBeenDropped;
+
     private AudioSource _audioSource;
 
     // Use this for initialization
@@ -11,6 +13,7 @@ public class MetalBallScript : MonoBehaviour {
     {
 
         this._audioSource = GetComponent<AudioSource>();
+        this.ballHasBeenDropped = false;
     }
 
 

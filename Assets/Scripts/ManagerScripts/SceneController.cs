@@ -122,31 +122,38 @@ public class SceneController : MonoBehaviour {
 
     public GameState ballDropped(BallType droppedBallType)
     {
-        this.levelScore += deltaScoreToBeAddedOnPartObjectiveCompletion;
-        ballsDroppedSoFar += 1;
-
-        //Play the score animation
-        if (droppedBallType == BallType.Normal_10_Points)
+        if (this.gameConcluded == false)
         {
-            GameObject instanceOfNormal_10_PointsTextObj = GameObject.Instantiate(this.normal_10_PointsTextObj);
-            GameObject.Destroy(instanceOfNormal_10_PointsTextObj, 1);
-        }
+            this.levelScore += deltaScoreToBeAddedOnPartObjectiveCompletion;
+            ballsDroppedSoFar += 1;
 
-        if (ballsDroppedSoFar >= numberOfBallsToDrop) {
+            //Play the score animation
+            if (droppedBallType == BallType.Normal_10_Points)
+            {
+                GameObject instanceOfNormal_10_PointsTextObj = GameObject.Instantiate(this.normal_10_PointsTextObj);
+                GameObject.Destroy(instanceOfNormal_10_PointsTextObj, 1);
+            }
 
-            _gameState = GameState.LastBallDropped;
-            this.gameConcluded = true;
+            if (ballsDroppedSoFar >= numberOfBallsToDrop)
+            {
 
-            //Victory
-            StartCoroutine(showLevelVictoryScene());
-        }
-        else if (ballsDroppedSoFar == (numberOfBallsToDrop - 1)) {
+                _gameState = GameState.LastBallDropped;
+                this.gameConcluded = true;
 
-            _gameState = GameState.LastButOneBallDropped;
+                //Victory
+                StartCoroutine(showLevelVictoryScene());
+            }
+            else if (ballsDroppedSoFar == (numberOfBallsToDrop - 1))
+            {
 
-        } else if (ballsDroppedSoFar > 0) {
+                _gameState = GameState.LastButOneBallDropped;
 
-            _gameState = GameState.BallDropped;
+            }
+            else if (ballsDroppedSoFar > 0)
+            {
+
+                _gameState = GameState.BallDropped;
+            }
         }
 
         return _gameState;

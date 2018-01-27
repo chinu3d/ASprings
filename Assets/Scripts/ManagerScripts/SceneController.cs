@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public enum LevelObjectiveType {
 
@@ -18,7 +19,8 @@ public enum GameState {
 
 public enum BallType
 {
-    Normal_10_Points
+    Normal_10_Points,
+    Bonus_GreenBall
 };
 
 public class SceneController : MonoBehaviour {
@@ -29,6 +31,7 @@ public class SceneController : MonoBehaviour {
     public AmmoSpawnerScript ammoSpawnerScript;
     public string strLevelNumber;
     public GameObject normal_10_PointsTextObj;
+    public GameObject bonusGreenBallTextObj;
     public CanvasGroup GameOverCanvasGroup;
     public CanvasGroup CountdownAfterLastAmmoFireCanvasGroup;
     public AudioSource GameOverAudioSource;
@@ -38,6 +41,7 @@ public class SceneController : MonoBehaviour {
     private int levelScore;
     private GameState _gameState;
     private int deltaScoreToBeAddedOnPartObjectiveCompletion;
+    private int deltaScoreToBeAddedOnBonusGreenBallDrop;
     private bool gameConcluded; //Game won/lost or still in progress
 
     //Objective type - Drop Balls
@@ -57,6 +61,7 @@ public class SceneController : MonoBehaviour {
         if (objectiveType == LevelObjectiveType.DropBalls) {
 
             deltaScoreToBeAddedOnPartObjectiveCompletion = 10;
+            deltaScoreToBeAddedOnBonusGreenBallDrop = 20;
             ballsDroppedSoFar = 0;
         }
 	}
@@ -124,21 +129,36 @@ public class SceneController : MonoBehaviour {
     {
         if (this.gameConcluded == false)
         {
-            this.levelScore += deltaScoreToBeAddedOnPartObjectiveCompletion;
-            ballsDroppedSoFar += 1;
 
             //Play the score animation
             if (droppedBallType == BallType.Normal_10_Points)
             {
                 GameObject instanceOfNormal_10_PointsTextObj = GameObject.Instantiate(this.normal_10_PointsTextObj);
                 GameObject.Destroy(instanceOfNormal_10_PointsTextObj, 1);
+
+                this.levelScore += deltaScoreToBeAddedOnPartObjectiveCompletion;
+                ballsDroppedSoFar += 1;
+            }
+            else if (droppedBallType == BallType.Bonus_GreenBall)
+            {
+                GameObject instanceOfBonusGreenBallTextObj = GameObject.Instantiate(this.bonusGreenBallTextObj);
+                GameObject.Destroy(instanceOfBonusGreenBallTextObj, 1);
+
+                this.levelScore += deltaScoreToBeAddedOnBonusGreenBallDrop;
             }
 
             if (ballsDroppedSoFar >= numberOfBallsToDrop)
             {
-
                 _gameState = GameState.LastBallDropped;
                 this.gameConcluded = true;
+
+                //Write score to playerPrefs
+                //Calculate "ammo left bonus"
+                int ammoLeftBonus = (this.ammoSpawnerScript.ammoLeft()) * 5;
+                PlayerPrefs.SetInt(GameManager.instance.currentLevelSceneName + "_score", (this.levelScore + ammoLeftBonus));
+                int currentStoredTotalScore = PlayerPrefs.GetInt("TotalScore", 0);
+                currentStoredTotalScore += (this.levelScore + ammoLeftBonus);
+                PlayerPrefs.SetInt("TotalScore", currentStoredTotalScore);
 
                 //Victory
                 StartCoroutine(showLevelVictoryScene());

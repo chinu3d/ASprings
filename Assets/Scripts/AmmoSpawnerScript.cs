@@ -13,7 +13,9 @@ enum AmmoSpawnerState
 public class AmmoSpawnerScript : MonoBehaviour {
 
     public GameObject ammoPrefab;
+    public GameObject rocketPrefab;
     public int maxAmmo;
+    public int numberOfRockets; //Should always be less than or equal to the max ammo
     public UnityEvent ammoFiredEvent;
 
     private int ammoExhaustedSoFar;
@@ -35,12 +37,25 @@ public class AmmoSpawnerScript : MonoBehaviour {
     {
         if ((ammoExhaustedSoFar < maxAmmo) && (_ammoSpawnerState == AmmoSpawnerState.ReadyForNextSpawn))
         {
-            GameObject tempProjectileObject = GameObject.Instantiate(ammoPrefab, this.gameObject.transform.position, this.gameObject.transform.rotation);
-            ammoExhaustedSoFar += 1;
-            tempProjectileObject.name = "Projectile_" + ammoExhaustedSoFar;
-            //arrayOfProjectileNamesExhaustedSoFar.Add(tempProjectileObject.name);
+            //First, release all the rockets
+            if (this.numberOfRockets > 0)
+            {
+                GameObject tempProjectileObject = GameObject.Instantiate(rocketPrefab, this.gameObject.transform.position, this.gameObject.transform.rotation);
+                ammoExhaustedSoFar += 1;
+                numberOfRockets -= 1;
+                tempProjectileObject.name = "Projectile_" + ammoExhaustedSoFar;
 
-            _ammoSpawnerState = AmmoSpawnerState.NotReadyForSpawn;
+                _ammoSpawnerState = AmmoSpawnerState.NotReadyForSpawn;
+            }
+            else
+            {
+                GameObject tempProjectileObject = GameObject.Instantiate(ammoPrefab, this.gameObject.transform.position, this.gameObject.transform.rotation);
+                ammoExhaustedSoFar += 1;
+                tempProjectileObject.name = "Projectile_" + ammoExhaustedSoFar;
+
+                _ammoSpawnerState = AmmoSpawnerState.NotReadyForSpawn;
+            }
+            
         }
     }
 

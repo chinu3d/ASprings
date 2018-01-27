@@ -24,6 +24,13 @@ public class BallReceiverScript : MonoBehaviour {
             collision.gameObject.GetComponent<MetalBallScript>().ballHasBeenDropped = true;
             GameState currentGameState = sceneController.ballDropped(BallType.Normal_10_Points);
         }
+        else if ((collision.gameObject.tag.Equals("BonusGreenBall")) &&
+                 (collision.gameObject.GetComponent<BonusBallScript>().ballHasBeenDropped == false))
+        {
+            collision.gameObject.GetComponent<BonusBallScript>().ballHasBeenDropped = true;
+            GameState currentGameState = sceneController.ballDropped(BallType.Bonus_GreenBall);
+        }
+
     }
 
     /*private void OnTriggerEnter2D(Collider2D collision)

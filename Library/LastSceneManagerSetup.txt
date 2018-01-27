@@ -20,6 +20,12 @@ sceneSetups:
 - path: Assets/Scenes/Module1/Scene1_5.unity
   isLoaded: 0
   isActive: 0
+- path: Assets/Scenes/Module1/Scene1_6.unity
+  isLoaded: 0
+  isActive: 0
+- path: Assets/Scenes/Module1/Scene1_7.unity
+  isLoaded: 0
+  isActive: 0
 - path: Assets/Scenes/LevelVictoryScene.unity
   isLoaded: 0
   isActive: 0

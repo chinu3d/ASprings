@@ -96,6 +96,7 @@
     <Compile Include="Assets\Scripts\ExploderScript.cs" />
     <Compile Include="Assets\Scripts\Fading.cs" />
     <Compile Include="Assets\Scripts\FireworksScript.cs" />
+    <Compile Include="Assets\Scripts\LevelScoreScript.cs" />
     <Compile Include="Assets\Scripts\MainMenuCloseButtonScript.cs" />
     <Compile Include="Assets\Scripts\ManagerScripts\ButtonScriptForLevel.cs" />
     <Compile Include="Assets\Scripts\ManagerScripts\GameManager.cs" />
@@ -104,8 +105,10 @@
     <Compile Include="Assets\Scripts\ManagerScripts\Module1_ButtonScript.cs" />
     <Compile Include="Assets\Scripts\ManagerScripts\SceneController.cs" />
     <Compile Include="Assets\Scripts\MetalBallScript.cs" />
+    <Compile Include="Assets\Scripts\RocketProjectileScript.cs" />
     <Compile Include="Assets\Scripts\Spring.cs" />
     <Compile Include="Assets\Scripts\SpringLoad.cs" />
+    <Compile Include="Assets\Scripts\TotalScoreScript.cs" />
     <Compile Include="Assets\Scripts\UIGameOverExitButtonScript.cs" />
     <Compile Include="Assets\Scripts\UIGameOverRetryButtonScript.cs" />
     <Compile Include="Assets\Scripts\UIInGameCancelExitButtonScript.cs" />

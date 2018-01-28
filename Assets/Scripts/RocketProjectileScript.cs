@@ -20,6 +20,11 @@ public class RocketProjectileScript : MonoBehaviour {
     void Update()
     {
         //wait();
+        if (_hasLeftAmmoSpawner)
+        {
+            //float rotatedAngle = this.gameObject.transform.rotation.z;
+            this.gameObject.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector3(10.0f, 0.0f, 0.0f));
+        }
     }
 
     IEnumerator wait()
@@ -46,7 +51,12 @@ public class RocketProjectileScript : MonoBehaviour {
     {
         if (collision.gameObject.tag.Equals("AmmoSpawner"))
         {
-            this.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(100.0f, 200.0f, 0.0f));
+            this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+
+            AudioSource rocketExhaustAudioSource = this.gameObject.transform.GetChild(0).GetComponent<AudioSource>();
+            if (rocketExhaustAudioSource.isPlaying == false)
+                rocketExhaustAudioSource.Play();
+
             _hasLeftAmmoSpawner = true;
         }
     }

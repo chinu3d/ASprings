@@ -106,6 +106,7 @@
     <Compile Include="Assets\Scripts\ManagerScripts\SceneController.cs" />
     <Compile Include="Assets\Scripts\MetalBallScript.cs" />
     <Compile Include="Assets\Scripts\RocketProjectileScript.cs" />
+    <Compile Include="Assets\Scripts\RotatingArc.cs" />
     <Compile Include="Assets\Scripts\Spring.cs" />
     <Compile Include="Assets\Scripts\SpringLoad.cs" />
     <Compile Include="Assets\Scripts\TotalScoreScript.cs" />

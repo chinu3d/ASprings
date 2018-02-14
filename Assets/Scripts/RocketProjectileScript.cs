@@ -8,12 +8,14 @@ public class RocketProjectileScript : MonoBehaviour {
 
     private AudioSource _audioSource;
     private bool _hasLeftAmmoSpawner;
+    private Animator _animator;
 
     // Use this for initialization
     void Start()
     {
 
         this._audioSource = GetComponent<AudioSource>();
+        this._animator = GetComponent<Animator>();
         _hasLeftAmmoSpawner = false;
     }
 
@@ -58,6 +60,14 @@ public class RocketProjectileScript : MonoBehaviour {
                 rocketExhaustAudioSource.Play();
 
             _hasLeftAmmoSpawner = true;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Fire")
+        {
+            this._animator.enabled = true;
         }
     }
 

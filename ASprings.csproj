@@ -95,6 +95,7 @@
     <Compile Include="Assets\Scripts\CloseAppConfirmScript.cs" />
     <Compile Include="Assets\Scripts\ExploderScript.cs" />
     <Compile Include="Assets\Scripts\Fading.cs" />
+    <Compile Include="Assets\Scripts\FireScript.cs" />
     <Compile Include="Assets\Scripts\FireworksScript.cs" />
     <Compile Include="Assets\Scripts\LevelScoreScript.cs" />
     <Compile Include="Assets\Scripts\MainMenuCloseButtonScript.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Assets\Scripts\UINextLevelButtonScript.cs" />
     <Compile Include="Assets\Scripts\VerticalMotionScript.cs" />
     <Compile Include="Assets\Scripts\ViewportHandler.cs" />
+    <Compile Include="Assets\Scripts\WindArea.cs" />
     <Compile Include="Assets\Scripts\WoodenProjectileScript.cs" />
   </ItemGroup>
   <ItemGroup>

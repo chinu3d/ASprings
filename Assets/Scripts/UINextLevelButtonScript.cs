@@ -8,13 +8,21 @@ public class UINextLevelButtonScript : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        GetComponent<Button>().onClick.AddListener(clicked);
+        if (GameManager.instance.checkIfNextLevelIsAvailable())
+        {
+            GetComponent<Button>().onClick.AddListener(clicked);
+
+        }
+        else
+        {
+            this.GetComponent<Image>().enabled = false;
+            this.GetComponent<Button>().enabled = false;
+        }
     }
 
     void clicked()
     {
         GetComponent<AudioSource>().Play();
-
         StartCoroutine(changeScene());
     }
 

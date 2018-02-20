@@ -120,6 +120,45 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public bool checkIfNextLevelIsAvailable()
+    {
+        char[] separatingChars = { '_' };
+        string[] splitLevelNameParts = this.currentLevelSceneName.Split(separatingChars);
+        int currentLevelNum = 0;
+        int.TryParse(splitLevelNameParts[1], out currentLevelNum);
+        int currentModuleNum = 1;
+
+        if (splitLevelNameParts[0].EndsWith("1"))
+        {
+            currentModuleNum = 1;
+        }
+        else if (splitLevelNameParts[0].EndsWith("2"))
+        {
+            currentModuleNum = 2;
+        }
+        else if (splitLevelNameParts[0].EndsWith("3"))
+        {
+            currentModuleNum = 3;
+        }
+
+        if ((currentModuleNum == 1) && (currentLevelNum >= maxNumberOflevelsForModule1))
+        {
+            return false;
+        }
+        else if ((currentModuleNum == 2) && (currentLevelNum >= maxNumberOflevelsForModule2))
+        {
+            return false;
+        }
+        else if ((currentModuleNum == 3) && (currentLevelNum >= maxNumberOflevelsForModule3))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     public void LoadLevelVictoryScene()
     {
         SceneManager.LoadSceneAsync("LevelVictoryScene");

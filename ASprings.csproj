@@ -97,6 +97,7 @@
     <Compile Include="Assets\Scripts\Fading.cs" />
     <Compile Include="Assets\Scripts\FireScript.cs" />
     <Compile Include="Assets\Scripts\FireworksScript.cs" />
+    <Compile Include="Assets\Scripts\HorizontalMotionScript.cs" />
     <Compile Include="Assets\Scripts\LevelScoreScript.cs" />
     <Compile Include="Assets\Scripts\MainMenuCloseButtonScript.cs" />
     <Compile Include="Assets\Scripts\ManagerScripts\ButtonScriptForLevel.cs" />

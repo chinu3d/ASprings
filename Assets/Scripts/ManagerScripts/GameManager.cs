@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     private bool _gameIsPaused = false;
     public string currentLevelSceneName;
 
-    private int maxNumberOflevelsForModule1 = 20;
+    private int maxNumberOflevelsForModule1 = 30;
     private int maxNumberOflevelsForModule2 = 20;
     private int maxNumberOflevelsForModule3 = 20;
 

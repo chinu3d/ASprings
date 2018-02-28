@@ -91,6 +91,10 @@
     <Compile Include="Assets\Scripts\BallReceiverScript.cs" />
     <Compile Include="Assets\Scripts\BonusBallScript.cs" />
     <Compile Include="Assets\Scripts\CameraAspect.cs" />
+    <Compile Include="Assets\Scripts\CannonNozzleScript.cs" />
+    <Compile Include="Assets\Scripts\CannonScript.cs" />
+    <Compile Include="Assets\Scripts\CannonToggleButtonScript.cs" />
+    <Compile Include="Assets\Scripts\CannonWheelScript.cs" />
     <Compile Include="Assets\Scripts\CloseAppCancelScript.cs" />
     <Compile Include="Assets\Scripts\CloseAppConfirmScript.cs" />
     <Compile Include="Assets\Scripts\ExploderScript.cs" />
@@ -105,6 +109,7 @@
     <Compile Include="Assets\Scripts\ManagerScripts\Loader.cs" />
     <Compile Include="Assets\Scripts\ManagerScripts\Module1_BackButtonScript.cs" />
     <Compile Include="Assets\Scripts\ManagerScripts\Module1_ButtonScript.cs" />
+    <Compile Include="Assets\Scripts\ManagerScripts\Module2_ButtonScript.cs" />
     <Compile Include="Assets\Scripts\ManagerScripts\SceneController.cs" />
     <Compile Include="Assets\Scripts\MetalBallScript.cs" />
     <Compile Include="Assets\Scripts\RocketProjectileScript.cs" />

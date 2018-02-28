@@ -3,9 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum CurrentPlatform
+{
+
+    iOS = 0,
+    Android = 1,
+    AppleOSX = 2,
+    Windows = 3
+}
+
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
+
+    public CurrentPlatform currentPlatform;
 
     private bool _gameIsPaused = false;
     public string currentLevelSceneName;
@@ -64,6 +76,11 @@ public class GameManager : MonoBehaviour
     public void LoadModule1_LevelsScreen()
     {
         SceneManager.LoadSceneAsync("Module1_Menu");
+    }
+
+    public void LoadModule2_Level()
+    {
+        SceneManager.LoadSceneAsync("Scene2_1");
     }
 
     public void LoadMainMenuScene()

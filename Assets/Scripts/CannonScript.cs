@@ -74,7 +74,7 @@ public class CannonScript : MonoBehaviour {
                 }
                 else if (cannonControlState == CannonControlState.RotateNozzle)
                 {
-                    zRotationOfNozzle += touchDeltaPosition.x;
+                    zRotationOfNozzle += Mathf.Clamp(touchDeltaPosition.x, -1.0f, 1.0f);
 
                     if ((zRotationOfNozzle <= 40.0f) &&
                         (zRotationOfNozzle >= 0.0f))

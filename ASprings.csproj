@@ -91,6 +91,7 @@
     <Compile Include="Assets\Scripts\BallReceiverScript.cs" />
     <Compile Include="Assets\Scripts\BonusBallScript.cs" />
     <Compile Include="Assets\Scripts\CameraAspect.cs" />
+    <Compile Include="Assets\Scripts\CannonFireButtonScript.cs" />
     <Compile Include="Assets\Scripts\CannonNozzleScript.cs" />
     <Compile Include="Assets\Scripts\CannonScript.cs" />
     <Compile Include="Assets\Scripts\CannonToggleButtonScript.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="Assets\Scripts\Fading.cs" />
     <Compile Include="Assets\Scripts\FireScript.cs" />
     <Compile Include="Assets\Scripts\FireworksScript.cs" />
+    <Compile Include="Assets\Scripts\FlyingObjectSpawner.cs" />
     <Compile Include="Assets\Scripts\HorizontalMotionScript.cs" />
     <Compile Include="Assets\Scripts\LevelScoreScript.cs" />
     <Compile Include="Assets\Scripts\MainMenuCloseButtonScript.cs" />
@@ -116,6 +118,7 @@
     <Compile Include="Assets\Scripts\RotatingArc.cs" />
     <Compile Include="Assets\Scripts\Spring.cs" />
     <Compile Include="Assets\Scripts\SpringLoad.cs" />
+    <Compile Include="Assets\Scripts\StraightFlyingObjectScript.cs" />
     <Compile Include="Assets\Scripts\TotalScoreScript.cs" />
     <Compile Include="Assets\Scripts\UIGameOverExitButtonScript.cs" />
     <Compile Include="Assets\Scripts\UIGameOverRetryButtonScript.cs" />

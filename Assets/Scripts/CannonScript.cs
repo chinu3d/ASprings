@@ -57,6 +57,11 @@ public class CannonScript : MonoBehaviour {
                 {
                     zRotationOfNozzle = 40.0f;
                 }
+            } 
+
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                StartCoroutine(cannonNozzleScript.fireCannonBall());
             }
 
         }
